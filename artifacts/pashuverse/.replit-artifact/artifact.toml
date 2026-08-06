@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "PASHUVERSE"
+version = "1.0.0"
+id = "artifacts/pashuverse"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24392
+
+[services.development]
+run = "pnpm --filter @workspace/pashuverse run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pashuverse", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/pashuverse/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24392"
+BASE_PATH = "/"

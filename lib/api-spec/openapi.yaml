@@ -1,0 +1,1511 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: PASHUVERSE API – AI-Powered Livestock Management Platform
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: animals
+    description: Animal management
+  - name: health-records
+    description: Animal health records
+  - name: vaccinations
+    description: Vaccination management
+  - name: appointments
+    description: Appointment booking
+  - name: disease-predictions
+    description: AI disease detection
+  - name: marketplace
+    description: Marketplace products and orders
+  - name: insurance
+    description: Insurance policies and claims
+  - name: community
+    description: Community posts and discussions
+  - name: notifications
+    description: User notifications
+  - name: sos
+    description: Emergency SOS requests
+  - name: dashboard
+    description: Dashboard stats and analytics
+  - name: digital-twins
+    description: Animal digital twins
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # Animals
+  /animals:
+    get:
+      operationId: listAnimals
+      tags: [animals]
+      summary: List all animals
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: species
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of animals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Animal"
+    post:
+      operationId: createAnimal
+      tags: [animals]
+      summary: Register a new animal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimalInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+
+  /animals/{id}:
+    get:
+      operationId: getAnimal
+      tags: [animals]
+      summary: Get animal by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Animal found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateAnimal
+      tags: [animals]
+      summary: Update animal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimalUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteAnimal
+      tags: [animals]
+      summary: Delete animal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /animals/{id}/health-records:
+    get:
+      operationId: getAnimalHealthRecords
+      tags: [animals]
+      summary: Get health records for an animal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Health records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HealthRecord"
+
+  /animals/{id}/vaccinations:
+    get:
+      operationId: getAnimalVaccinations
+      tags: [animals]
+      summary: Get vaccinations for an animal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Vaccinations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vaccination"
+
+  /animals/{id}/digital-twin:
+    get:
+      operationId: getAnimalDigitalTwin
+      tags: [animals, digital-twins]
+      summary: Get digital twin for an animal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Digital twin
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DigitalTwin"
+
+  # Health Records
+  /health-records:
+    get:
+      operationId: listHealthRecords
+      tags: [health-records]
+      summary: List health records
+      parameters:
+        - name: animalId
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of health records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HealthRecord"
+    post:
+      operationId: createHealthRecord
+      tags: [health-records]
+      summary: Create a health record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HealthRecordInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthRecord"
+
+  /health-records/{id}:
+    get:
+      operationId: getHealthRecord
+      tags: [health-records]
+      summary: Get health record by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Health record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthRecord"
+        "404":
+          description: Not found
+
+  # Vaccinations
+  /vaccinations:
+    get:
+      operationId: listVaccinations
+      tags: [vaccinations]
+      summary: List vaccinations
+      parameters:
+        - name: animalId
+          in: query
+          schema:
+            type: integer
+        - name: upcoming
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of vaccinations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vaccination"
+    post:
+      operationId: createVaccination
+      tags: [vaccinations]
+      summary: Record a vaccination
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VaccinationInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Vaccination"
+
+  # Appointments
+  /appointments:
+    get:
+      operationId: listAppointments
+      tags: [appointments]
+      summary: List appointments
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appointment"
+    post:
+      operationId: createAppointment
+      tags: [appointments]
+      summary: Book an appointment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+
+  /appointments/{id}:
+    get:
+      operationId: getAppointment
+      tags: [appointments]
+      summary: Get appointment by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Appointment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateAppointment
+      tags: [appointments]
+      summary: Update appointment status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Appointment"
+        "404":
+          description: Not found
+
+  # Disease Predictions
+  /disease-predictions:
+    get:
+      operationId: listDiseasePredictions
+      tags: [disease-predictions]
+      summary: List disease predictions
+      parameters:
+        - name: animalId
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of predictions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DiseasePrediction"
+    post:
+      operationId: createDiseasePrediction
+      tags: [disease-predictions]
+      summary: Submit symptoms for AI prediction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiseasePredictionInput"
+      responses:
+        "201":
+          description: Prediction created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiseasePrediction"
+
+  /disease-predictions/{id}:
+    get:
+      operationId: getDiseasePrediction
+      tags: [disease-predictions]
+      summary: Get disease prediction by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Prediction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiseasePrediction"
+        "404":
+          description: Not found
+
+  # Marketplace
+  /marketplace/products:
+    get:
+      operationId: listProducts
+      tags: [marketplace]
+      summary: List marketplace products
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /marketplace/products/{id}:
+    get:
+      operationId: getProduct
+      tags: [marketplace]
+      summary: Get product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Not found
+
+  /marketplace/orders:
+    get:
+      operationId: listOrders
+      tags: [marketplace]
+      summary: List orders
+      responses:
+        "200":
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+    post:
+      operationId: createOrder
+      tags: [marketplace]
+      summary: Place an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderInput"
+      responses:
+        "201":
+          description: Order placed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+  # Insurance
+  /insurance/policies:
+    get:
+      operationId: listInsurancePolicies
+      tags: [insurance]
+      summary: List insurance policies
+      responses:
+        "200":
+          description: List of policies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InsurancePolicy"
+    post:
+      operationId: createInsurancePolicy
+      tags: [insurance]
+      summary: Buy an insurance policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsurancePolicyInput"
+      responses:
+        "201":
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InsurancePolicy"
+
+  /insurance/claims:
+    get:
+      operationId: listInsuranceClaims
+      tags: [insurance]
+      summary: List insurance claims
+      responses:
+        "200":
+          description: List of claims
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InsuranceClaim"
+    post:
+      operationId: createInsuranceClaim
+      tags: [insurance]
+      summary: File an insurance claim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsuranceClaimInput"
+      responses:
+        "201":
+          description: Claim filed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InsuranceClaim"
+
+  /insurance/claims/{id}:
+    get:
+      operationId: getInsuranceClaim
+      tags: [insurance]
+      summary: Get insurance claim by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Claim
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InsuranceClaim"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateInsuranceClaim
+      tags: [insurance]
+      summary: Update claim status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InsuranceClaimUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InsuranceClaim"
+        "404":
+          description: Not found
+
+  # Community
+  /community/posts:
+    get:
+      operationId: listCommunityPosts
+      tags: [community]
+      summary: List community posts
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CommunityPost"
+    post:
+      operationId: createCommunityPost
+      tags: [community]
+      summary: Create a community post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunityPostInput"
+      responses:
+        "201":
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommunityPost"
+
+  /community/posts/{id}:
+    get:
+      operationId: getCommunityPost
+      tags: [community]
+      summary: Get community post by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommunityPost"
+        "404":
+          description: Not found
+
+  # Notifications
+  /notifications:
+    get:
+      operationId: listNotifications
+      tags: [notifications]
+      summary: List notifications
+      parameters:
+        - name: isRead
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Notification"
+
+  /notifications/{id}/read:
+    patch:
+      operationId: markNotificationRead
+      tags: [notifications]
+      summary: Mark notification as read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notification"
+        "404":
+          description: Not found
+
+  # SOS
+  /sos-requests:
+    get:
+      operationId: listSosRequests
+      tags: [sos]
+      summary: List SOS requests
+      responses:
+        "200":
+          description: List of SOS requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SosRequest"
+    post:
+      operationId: createSosRequest
+      tags: [sos]
+      summary: Create an SOS request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SosRequestInput"
+      responses:
+        "201":
+          description: SOS created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SosRequest"
+
+  /sos-requests/{id}:
+    patch:
+      operationId: updateSosRequest
+      tags: [sos]
+      summary: Update SOS request status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SosRequestUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SosRequest"
+        "404":
+          description: Not found
+
+  # Dashboard & Analytics (wow endpoints)
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get dashboard statistics
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/disease-surveillance:
+    get:
+      operationId: getDiseaseSurveillance
+      tags: [dashboard]
+      summary: Get disease surveillance data for map
+      responses:
+        "200":
+          description: Surveillance data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SurveillancePoint"
+
+  /dashboard/recent-activity:
+    get:
+      operationId: getRecentActivity
+      tags: [dashboard]
+      summary: Get recent platform activity
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+
+  /dashboard/farm-analytics:
+    get:
+      operationId: getFarmAnalytics
+      tags: [dashboard]
+      summary: Get farm analytics (production, mortality, growth)
+      responses:
+        "200":
+          description: Farm analytics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FarmAnalytics"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    # Animal
+    Animal:
+      type: object
+      required: [id, name, species, breed, ownerId, status, healthScore, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        species:
+          type: string
+        breed:
+          type: string
+        age:
+          type: ["number", "null"]
+        weight:
+          type: ["number", "null"]
+        ownerId:
+          type: string
+        qrCode:
+          type: ["string", "null"]
+        healthScore:
+          type: integer
+        status:
+          type: string
+        imageUrl:
+          type: ["string", "null"]
+        tagNumber:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+    AnimalInput:
+      type: object
+      required: [name, species, breed, ownerId]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        species:
+          type: string
+        breed:
+          type: string
+        age:
+          type: number
+        weight:
+          type: number
+        ownerId:
+          type: string
+        imageUrl:
+          type: string
+        tagNumber:
+          type: string
+    AnimalUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        breed:
+          type: string
+        age:
+          type: number
+        weight:
+          type: number
+        status:
+          type: string
+        healthScore:
+          type: integer
+        imageUrl:
+          type: string
+
+    # Health Record
+    HealthRecord:
+      type: object
+      required: [id, animalId, diagnosis, treatment, recordedAt, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        veterinarianId:
+          type: ["string", "null"]
+        veterinarianName:
+          type: ["string", "null"]
+        diagnosis:
+          type: string
+        treatment:
+          type: string
+        notes:
+          type: ["string", "null"]
+        severity:
+          type: ["string", "null"]
+        recordedAt:
+          type: string
+        createdAt:
+          type: string
+    HealthRecordInput:
+      type: object
+      required: [animalId, diagnosis, treatment, recordedAt]
+      properties:
+        animalId:
+          type: integer
+        veterinarianId:
+          type: string
+        veterinarianName:
+          type: string
+        diagnosis:
+          type: string
+        treatment:
+          type: string
+        notes:
+          type: string
+        severity:
+          type: string
+        recordedAt:
+          type: string
+
+    # Vaccination
+    Vaccination:
+      type: object
+      required: [id, animalId, vaccineName, administeredDate, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        vaccineName:
+          type: string
+        batchNumber:
+          type: ["string", "null"]
+        administeredDate:
+          type: string
+        nextDueDate:
+          type: ["string", "null"]
+        veterinarianId:
+          type: ["string", "null"]
+        veterinarianName:
+          type: ["string", "null"]
+        certificateUrl:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+    VaccinationInput:
+      type: object
+      required: [animalId, vaccineName, administeredDate]
+      properties:
+        animalId:
+          type: integer
+        vaccineName:
+          type: string
+          minLength: 1
+        batchNumber:
+          type: string
+        administeredDate:
+          type: string
+        nextDueDate:
+          type: string
+        veterinarianId:
+          type: string
+        veterinarianName:
+          type: string
+
+    # Appointment
+    Appointment:
+      type: object
+      required: [id, animalId, type, status, scheduledAt, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        animalName:
+          type: ["string", "null"]
+        veterinarianId:
+          type: ["string", "null"]
+        veterinarianName:
+          type: ["string", "null"]
+        type:
+          type: string
+        status:
+          type: string
+        scheduledAt:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+    AppointmentInput:
+      type: object
+      required: [animalId, type, scheduledAt]
+      properties:
+        animalId:
+          type: integer
+        veterinarianId:
+          type: string
+        veterinarianName:
+          type: string
+        type:
+          type: string
+        scheduledAt:
+          type: string
+        notes:
+          type: string
+    AppointmentUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        notes:
+          type: string
+        veterinarianId:
+          type: string
+
+    # Disease Prediction
+    DiseasePrediction:
+      type: object
+      required: [id, animalId, symptoms, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        animalName:
+          type: ["string", "null"]
+        symptoms:
+          type: string
+        predictedDisease:
+          type: ["string", "null"]
+        confidence:
+          type: ["number", "null"]
+        severity:
+          type: ["string", "null"]
+        severityScore:
+          type: ["number", "null"]
+        recommendedTreatment:
+          type: ["string", "null"]
+        nearbyVets:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+    DiseasePredictionInput:
+      type: object
+      required: [animalId, symptoms]
+      properties:
+        animalId:
+          type: integer
+        symptoms:
+          type: string
+          minLength: 1
+        imageUrl:
+          type: string
+
+    # Marketplace - Product
+    Product:
+      type: object
+      required: [id, name, category, price, stock, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        description:
+          type: ["string", "null"]
+        price:
+          type: number
+        stock:
+          type: integer
+        sellerId:
+          type: ["string", "null"]
+        sellerName:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        isVerified:
+          type: boolean
+        rating:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+
+    # Marketplace - Order
+    Order:
+      type: object
+      required: [id, productId, buyerId, quantity, status, totalAmount, createdAt]
+      properties:
+        id:
+          type: integer
+        productId:
+          type: integer
+        productName:
+          type: ["string", "null"]
+        buyerId:
+          type: string
+        quantity:
+          type: integer
+        status:
+          type: string
+        totalAmount:
+          type: number
+        createdAt:
+          type: string
+    OrderInput:
+      type: object
+      required: [productId, buyerId, quantity]
+      properties:
+        productId:
+          type: integer
+        buyerId:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+
+    # Insurance Policy
+    InsurancePolicy:
+      type: object
+      required: [id, animalId, policyNumber, provider, premium, startDate, status, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        animalName:
+          type: ["string", "null"]
+        policyNumber:
+          type: string
+        provider:
+          type: string
+        coverage:
+          type: ["string", "null"]
+        premium:
+          type: number
+        startDate:
+          type: string
+        endDate:
+          type: ["string", "null"]
+        status:
+          type: string
+        createdAt:
+          type: string
+    InsurancePolicyInput:
+      type: object
+      required: [animalId, provider, premium, startDate]
+      properties:
+        animalId:
+          type: integer
+        provider:
+          type: string
+        coverage:
+          type: string
+        premium:
+          type: number
+        startDate:
+          type: string
+        endDate:
+          type: string
+
+    # Insurance Claim
+    InsuranceClaim:
+      type: object
+      required: [id, policyId, amount, reason, status, createdAt]
+      properties:
+        id:
+          type: integer
+        policyId:
+          type: integer
+        amount:
+          type: number
+        reason:
+          type: string
+        status:
+          type: string
+        documents:
+          type: ["string", "null"]
+        reviewNotes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+    InsuranceClaimInput:
+      type: object
+      required: [policyId, amount, reason]
+      properties:
+        policyId:
+          type: integer
+        amount:
+          type: number
+          minimum: 0
+        reason:
+          type: string
+          minLength: 1
+        documents:
+          type: string
+    InsuranceClaimUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        reviewNotes:
+          type: string
+
+    # Community Post
+    CommunityPost:
+      type: object
+      required: [id, authorId, title, content, category, createdAt]
+      properties:
+        id:
+          type: integer
+        authorId:
+          type: string
+        authorName:
+          type: ["string", "null"]
+        authorRole:
+          type: ["string", "null"]
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+        likesCount:
+          type: integer
+        repliesCount:
+          type: integer
+        isPinned:
+          type: boolean
+        createdAt:
+          type: string
+    CommunityPostInput:
+      type: object
+      required: [authorId, title, content, category]
+      properties:
+        authorId:
+          type: string
+        title:
+          type: string
+          minLength: 1
+        content:
+          type: string
+          minLength: 1
+        category:
+          type: string
+
+    # Notification
+    Notification:
+      type: object
+      required: [id, userId, type, title, message, isRead, createdAt]
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        type:
+          type: string
+        title:
+          type: string
+        message:
+          type: string
+        isRead:
+          type: boolean
+        createdAt:
+          type: string
+
+    # SOS Request
+    SosRequest:
+      type: object
+      required: [id, farmerId, description, status, createdAt]
+      properties:
+        id:
+          type: integer
+        farmerId:
+          type: string
+        farmerName:
+          type: ["string", "null"]
+        animalId:
+          type: ["integer", "null"]
+        description:
+          type: string
+        latitude:
+          type: ["number", "null"]
+        longitude:
+          type: ["number", "null"]
+        status:
+          type: string
+        createdAt:
+          type: string
+    SosRequestInput:
+      type: object
+      required: [farmerId, description]
+      properties:
+        farmerId:
+          type: string
+        animalId:
+          type: integer
+        description:
+          type: string
+          minLength: 1
+        latitude:
+          type: number
+        longitude:
+          type: number
+    SosRequestUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+
+    # Digital Twin
+    DigitalTwin:
+      type: object
+      required: [id, animalId, healthScore, riskLevel, createdAt]
+      properties:
+        id:
+          type: integer
+        animalId:
+          type: integer
+        healthScore:
+          type: integer
+        riskLevel:
+          type: string
+        aiForecasts:
+          type: ["string", "null"]
+        medicalTimeline:
+          type: ["string", "null"]
+        nutritionScore:
+          type: ["number", "null"]
+        activityScore:
+          type: ["number", "null"]
+        lastUpdated:
+          type: string
+        createdAt:
+          type: string
+
+    # Dashboard / Analytics
+    DashboardStats:
+      type: object
+      required: [totalAnimals, healthyAnimals, sickAnimals, pendingVaccinations, activeAlerts, totalFarmers, activeCases]
+      properties:
+        totalAnimals:
+          type: integer
+        healthyAnimals:
+          type: integer
+        sickAnimals:
+          type: integer
+        pendingVaccinations:
+          type: integer
+        activeAlerts:
+          type: integer
+        totalFarmers:
+          type: integer
+        activeCases:
+          type: integer
+        todayAppointments:
+          type: integer
+        openSosRequests:
+          type: integer
+
+    SurveillancePoint:
+      type: object
+      required: [id, region, diseaseType, caseCount, severity, latitude, longitude]
+      properties:
+        id:
+          type: integer
+        region:
+          type: string
+        diseaseType:
+          type: string
+        caseCount:
+          type: integer
+        severity:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        reportedDate:
+          type: string
+
+    ActivityItem:
+      type: object
+      required: [id, type, description, timestamp]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        description:
+          type: string
+        timestamp:
+          type: string
+        actorName:
+          type: ["string", "null"]
+        actorRole:
+          type: ["string", "null"]
+
+    FarmAnalytics:
+      type: object
+      required: [milkProduction, growthRate, mortalityRate, revenue, expenses]
+      properties:
+        milkProduction:
+          type: array
+          items:
+            type: object
+            required: [month, liters]
+            properties:
+              month:
+                type: string
+              liters:
+                type: number
+        growthRate:
+          type: array
+          items:
+            type: object
+            required: [month, rate]
+            properties:
+              month:
+                type: string
+              rate:
+                type: number
+        mortalityRate:
+          type: number
+        revenue:
+          type: number
+        expenses:
+          type: number
+        profitMargin:
+          type: number

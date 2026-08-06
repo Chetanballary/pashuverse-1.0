@@ -1,0 +1,613 @@
+Build a premium, production-ready, responsive web application called **PASHUVERSE**.
+
+Project Title:
+PASHUVERSE – An AI-Powered Intelligent Ecosystem for Predictive Animal Healthcare and Livestock Management
+
+Theme:
+A futuristic healthcare ecosystem for livestock that connects Farmers, Veterinarians, Laboratories, Animal Hospitals, Government Authorities, NGOs, Insurance Providers, and Researchers on one intelligent platform.
+
+Design Language:
+• Apple + Tesla + Stripe + Notion inspired UI
+• Modern glassmorphism
+• Smooth animations
+• Dark/Light mode
+• Beautiful gradients
+• Rounded cards
+• Floating elements
+• Interactive dashboards
+• Premium icons
+• Lottie animations
+• Responsive on desktop, tablet and mobile
+• Accessibility compliant
+• Highly interactive user experience
+
+Primary Colors:
+Emerald Green (#10B981)
+Deep Blue (#0F172A)
+Sky Blue (#38BDF8)
+White
+Soft Gray
+
+Typography:
+Poppins
+Inter
+
+---------------------------------------------------
+TECH STACK
+---------------------------------------------------
+
+Frontend
+• HTML5
+• CSS3
+• JavaScript (Vanilla)
+• Tailwind CSS
+• Chart.js
+• GSAP animations
+• Lucide Icons
+
+Backend
+• Supabase
+Authentication
+Database
+Storage
+Realtime
+
+Deployment
+• Vercel Ready
+
+---------------------------------------------------
+AUTHENTICATION
+---------------------------------------------------
+
+Use Supabase Authentication
+
+Roles
+
+• Farmer
+• Veterinarian
+• Laboratory
+• Animal Hospital
+• Government Officer
+• NGO
+• Insurance Provider
+• Researcher
+• Admin
+
+Login
+Signup
+Forgot Password
+OTP Email Verification
+Role-based Dashboard
+
+---------------------------------------------------
+LANDING PAGE
+---------------------------------------------------
+
+Hero Section
+
+Headline
+
+"Predict. Prevent. Protect."
+
+Subheadline
+
+The world's first AI-powered ecosystem for predictive animal healthcare.
+
+CTA Buttons
+
+Get Started
+Explore Ecosystem
+
+Interactive Background
+
+Animated globe
+AI particles
+Floating livestock icons
+
+Sections
+
+About
+
+Statistics
+
+Services
+
+AI Features
+
+How It Works
+
+Testimonials
+
+Partners
+
+Government Support
+
+FAQs
+
+Contact
+
+Footer
+
+---------------------------------------------------
+PASHUVERSE MODULES
+---------------------------------------------------
+
+1. AI Disease Detection
+
+Upload Animal Image
+
+Upload Video
+
+Voice Symptoms
+
+Text Symptoms
+
+AI Prediction
+
+Disease Probability
+
+Recommended Treatment
+
+Severity Score
+
+Nearby Veterinarian
+
+---------------------------------------------------
+
+2. Digital Health Passport
+
+Unique QR Code
+
+Animal Details
+
+Breed
+
+Age
+
+Vaccination History
+
+Treatment History
+
+Insurance
+
+Growth Records
+
+Nutrition
+
+Lab Reports
+
+Owner History
+
+Download PDF
+
+---------------------------------------------------
+
+3. Tele Veterinary
+
+Video Consultation
+
+Voice Call
+
+Appointment Booking
+
+Emergency Consultation
+
+Live Chat
+
+Doctor Ratings
+
+---------------------------------------------------
+
+4. Vaccination Manager
+
+Calendar
+
+Reminder
+
+SMS Notification
+
+Email Notification
+
+Upcoming Vaccines
+
+Vaccination Certificate
+
+---------------------------------------------------
+
+5. Disease Surveillance
+
+Interactive GIS Map
+
+Disease Heat Map
+
+Nearby Outbreak Alerts
+
+Government Dashboard
+
+Analytics
+
+---------------------------------------------------
+
+6. Smart Farm Dashboard
+
+Number of Animals
+
+Healthy Animals
+
+Sick Animals
+
+Milk Production
+
+Growth Rate
+
+Revenue
+
+Expenses
+
+Mortality Rate
+
+Charts
+
+Analytics
+
+---------------------------------------------------
+
+7. Nutrition Advisor
+
+AI Feed Recommendation
+
+Mineral Deficiency
+
+Weight Tracking
+
+Growth Prediction
+
+---------------------------------------------------
+
+8. Breeding Management
+
+Heat Cycle Tracking
+
+Pregnancy Monitoring
+
+Calving Prediction
+
+Breeding Records
+
+---------------------------------------------------
+
+9. Emergency SOS
+
+One Click SOS
+
+Live GPS
+
+Nearest Hospital
+
+Nearest Vet
+
+Emergency Contacts
+
+---------------------------------------------------
+
+10. Marketplace
+
+Medicines
+
+Vaccines
+
+Feed
+
+Equipment
+
+Verified Sellers
+
+Secure Checkout
+
+---------------------------------------------------
+
+11. Insurance Portal
+
+Buy Insurance
+
+Claim Insurance
+
+Upload Documents
+
+Track Claim
+
+---------------------------------------------------
+
+12. Laboratory Portal
+
+Test Booking
+
+Sample Tracking
+
+Reports
+
+Doctor Access
+
+---------------------------------------------------
+
+13. Government Dashboard
+
+Outbreak Monitoring
+
+District Analytics
+
+Vaccination Analytics
+
+Livestock Census
+
+AI Prediction Dashboard
+
+---------------------------------------------------
+
+14. NGO Dashboard
+
+Animal Rescue
+
+Adoption
+
+Donation
+
+Volunteer Management
+
+---------------------------------------------------
+
+15. Research Portal
+
+Anonymous Data
+
+Disease Trends
+
+Analytics
+
+Download Dataset
+
+---------------------------------------------------
+
+16. AI Assistant
+
+Name:
+
+SAATHI AI
+
+Capabilities
+
+Voice Chat
+
+Text Chat
+
+Disease Guidance
+
+Farmer Education
+
+Emergency Help
+
+24x7 Assistant
+
+Supports
+
+English
+
+Kannada
+
+Hindi
+
+---------------------------------------------------
+
+17. Animal Digital Twin
+
+Every registered animal gets
+
+Digital Identity
+
+Health Score (0-100)
+
+Risk Prediction
+
+Medical Timeline
+
+AI Forecast
+
+Life History
+
+---------------------------------------------------
+
+18. Sustainability Dashboard
+
+Carbon Footprint
+
+Water Consumption
+
+Feed Efficiency
+
+Environmental Impact
+
+---------------------------------------------------
+
+19. Community
+
+Discussion Forum
+
+Ask Veterinarian
+
+Knowledge Base
+
+Training Videos
+
+Government Announcements
+
+---------------------------------------------------
+
+20. Smart Notifications
+
+Vaccination Due
+
+Disease Alert
+
+Medicine Reminder
+
+Appointment Reminder
+
+Emergency Alerts
+
+---------------------------------------------------
+ADMIN PANEL
+---------------------------------------------------
+
+Dashboard
+
+Manage Users
+
+Manage Animals
+
+Manage Hospitals
+
+Manage Doctors
+
+Manage Reports
+
+Manage Marketplace
+
+Manage Insurance
+
+Manage NGOs
+
+Manage Analytics
+
+---------------------------------------------------
+DATABASE (SUPABASE)
+---------------------------------------------------
+
+Create tables
+
+users
+
+animals
+
+health_records
+
+vaccinations
+
+appointments
+
+consultations
+
+disease_predictions
+
+marketplace
+
+orders
+
+laboratories
+
+reports
+
+insurance
+
+claims
+
+notifications
+
+sos_requests
+
+government_reports
+
+community_posts
+
+digital_twins
+
+analytics
+
+---------------------------------------------------
+ADVANCED FEATURES
+---------------------------------------------------
+
+AI Health Score
+
+Predictive Analytics
+
+QR Generator
+
+Realtime Notifications
+
+Realtime Chat
+
+Realtime Dashboard
+
+Search & Filter
+
+CSV Export
+
+PDF Export
+
+Dark Mode
+
+Progressive Web App (PWA)
+
+Offline Support
+
+---------------------------------------------------
+ANIMATIONS
+---------------------------------------------------
+
+GSAP
+
+Framer-like transitions
+
+Hover effects
+
+Loading skeletons
+
+Micro interactions
+
+Animated counters
+
+Parallax scrolling
+
+---------------------------------------------------
+SEO
+---------------------------------------------------
+
+SEO optimized
+
+Meta Tags
+
+Open Graph
+
+Structured Data
+
+Fast Loading
+
+Lighthouse Score >95
+
+---------------------------------------------------
+SECURITY
+---------------------------------------------------
+
+Supabase RLS
+
+Role Based Access
+
+JWT Authentication
+
+Input Validation
+
+Secure File Upload
+
+---------------------------------------------------
+DEPLOYMENT
+---------------------------------------------------
+
+The project should be fully deployable on Vercel without modification.
+
+All Supabase environment variables should be stored in .env.
+
+---------------------------------------------------
+FINAL REQUIREMENT
+---------------------------------------------------
+
+Generate a complete production-ready folder structure with clean code, reusable components, comments, responsive UI, and modern UX. Include placeholders for AI integration (OpenAI/Gemini APIs), maps, QR generation, and analytics. Ensure the application is modular, scalable, and suitable for a national-level hackathon demonstration.
