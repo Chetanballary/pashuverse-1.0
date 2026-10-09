@@ -25,7 +25,7 @@ export default function NotificationsPage() {
   };
 
   const getIcon = (type: string) => {
-    switch (type.toLowerCase()) {
+    switch ((type || 'general').toLowerCase()) {
       case 'disease alert': return <Activity className="w-5 h-5 text-red-500" />;
       case 'vaccination due': return <Syringe className="w-5 h-5 text-blue-500" />;
       case 'appointment reminder': return <CalendarCheck className="w-5 h-5 text-sky-500" />;

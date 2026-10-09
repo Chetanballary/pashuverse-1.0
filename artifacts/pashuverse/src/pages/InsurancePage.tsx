@@ -219,7 +219,7 @@ export default function InsurancePage() {
   };
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch ((status || 'Active').toLowerCase()) {
       case 'active': case 'approved': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
       case 'rejected': case 'cancelled': return 'bg-red-500/10 text-red-400 border-red-500/30';
       case 'pending': case 'under review': return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
@@ -426,7 +426,7 @@ export default function InsurancePage() {
                           <h3 className="text-lg font-display font-bold text-white">Policy #{policy.policyNumber}</h3>
                         </div>
                       </div>
-                      <Badge variant="outline" className={getStatusColor(policy.status)}>{policy.status.toUpperCase()}</Badge>
+                      <Badge variant="outline" className={getStatusColor(policy.status)}>{(policy.status || 'Active').toUpperCase()}</Badge>
                     </div>
 
                     {/* Animal & Risk Score Box */}

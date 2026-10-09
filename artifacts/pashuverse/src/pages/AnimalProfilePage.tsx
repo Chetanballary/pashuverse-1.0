@@ -40,7 +40,7 @@ export default function AnimalProfilePage() {
   const activeVaccinations = Array.isArray(vaccinations) ? vaccinations : [];
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch ((status || 'Healthy').toLowerCase()) {
       case 'healthy': return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
       case 'sick': return 'bg-red-500/10 text-red-500 border-red-500/20';
       case 'at risk': return 'bg-amber-500/10 text-amber-500 border-amber-500/20';
@@ -85,7 +85,7 @@ export default function AnimalProfilePage() {
               )}
               <div className="absolute top-4 right-4">
                 <Badge className={`px-3 py-1.5 text-sm glass-panel border ${getStatusColor(activeAnimal.status)}`}>
-                  {activeAnimal.status.toUpperCase()}
+                  {(activeAnimal.status || 'Healthy').toUpperCase()}
                 </Badge>
               </div>
             </div>

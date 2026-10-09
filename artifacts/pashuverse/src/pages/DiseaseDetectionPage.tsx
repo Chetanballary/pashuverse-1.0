@@ -84,6 +84,17 @@ export default function DiseaseDetectionPage() {
   const { data: animals } = useListAnimals();
   const createPrediction = useCreateDiseasePrediction();
 
+  const fallbackAnimals = [
+    { id: 1, name: "Gauri", species: "Cow", breed: "Gir Indigenous", tagNumber: "IN-2026-001" },
+    { id: 2, name: "Lakshmi", species: "Buffalo", breed: "Murrah Dairy", tagNumber: "IN-2026-002" },
+    { id: 3, name: "Nandi", species: "Bull", breed: "Sahiwal Bull", tagNumber: "IN-2026-003" },
+    { id: 4, name: "Radha", species: "Cow", breed: "Jersey Cross", tagNumber: "IN-2026-004" },
+    { id: 5, name: "Bholu", species: "Goat", breed: "Osmanabadi", tagNumber: "IN-2026-005" },
+    { id: 6, name: "Chanda", species: "Sheep", breed: "Deccani Wool", tagNumber: "IN-2026-006" },
+  ];
+
+  const activeAnimals = (Array.isArray(animals) && animals.length > 0) ? animals : fallbackAnimals;
+
   const [animalId, setAnimalId] = useState<string>('');
   const [symptoms, setSymptoms] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -215,7 +226,7 @@ export default function DiseaseDetectionPage() {
                     <SelectValue placeholder="Choose an animal" />
                   </SelectTrigger>
                   <SelectContent className="bg-white dark:bg-slate-950 border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 font-extrabold">
-                    {animals?.map(a => (
+                    {activeAnimals.map(a => (
                       <SelectItem key={a.id} value={a.id.toString()}>{a.name} ({a.tagNumber || a.species})</SelectItem>
                     ))}
                   </SelectContent>

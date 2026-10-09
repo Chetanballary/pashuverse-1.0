@@ -327,7 +327,7 @@ export default function AppointmentsPage() {
   };
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch ((status || 'Scheduled').toLowerCase()) {
       case 'scheduled': return 'bg-sky-500/10 text-sky-400 border-sky-500/30';
       case 'confirmed': return 'bg-primary/10 text-primary border-primary/30';
       case 'completed': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
@@ -337,7 +337,7 @@ export default function AppointmentsPage() {
   };
 
   const getTypeIcon = (type: string) => {
-    switch (type.toLowerCase()) {
+    switch ((type || 'Video Call').toLowerCase()) {
       case 'video call': return <Video className="w-4 h-4" />;
       case 'in-person': return <Users className="w-4 h-4" />;
       default: return <Clock className="w-4 h-4" />;
@@ -667,7 +667,7 @@ export default function AppointmentsPage() {
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-4">
                         <Badge variant="outline" className={getStatusColor(apt.status)}>
-                          {apt.status.toUpperCase()}
+                          {(apt.status || 'Scheduled').toUpperCase()}
                         </Badge>
                         <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
                           {getTypeIcon(apt.type)} {apt.type}

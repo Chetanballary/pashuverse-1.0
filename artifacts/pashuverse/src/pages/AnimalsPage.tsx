@@ -101,7 +101,7 @@ export default function AnimalsPage() {
   };
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch ((status || 'Healthy').toLowerCase()) {
       case 'healthy': return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
       case 'sick': return 'bg-red-500/10 text-red-500 border-red-500/20';
       case 'at risk': return 'bg-amber-500/10 text-amber-500 border-amber-500/20';
@@ -110,7 +110,7 @@ export default function AnimalsPage() {
   };
 
   const getStatusIcon = (status: string) => {
-    switch (status.toLowerCase()) {
+    switch ((status || 'Healthy').toLowerCase()) {
       case 'healthy': return <Heart className="w-3 h-3 mr-1" />;
       case 'sick': return <AlertCircle className="w-3 h-3 mr-1" />;
       case 'at risk': return <HeartPulse className="w-3 h-3 mr-1" />;

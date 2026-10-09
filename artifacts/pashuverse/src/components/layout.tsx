@@ -21,7 +21,8 @@ import {
   Sparkles,
   PhoneCall,
   PhoneOff,
-  Video
+  Video,
+  Globe
 } from 'lucide-react';
 import { useAuth, UserRole } from '@/context/AuthContext';
 import { useCallNotification } from '@/context/CallNotificationContext';
@@ -38,6 +39,18 @@ export function Sidebar({ open, setOpen }: { open: boolean, setOpen: (open: bool
   const [location] = useLocation();
   const { user, loginByRole, logout } = useAuth();
   const { theme, setTheme } = useTheme();
+
+  const [lang, setLang] = React.useState(() => {
+    const match = document.cookie.match(/(^|;\s*)googtrans=([^;]*)/);
+    return match ? match[2].split('/')[2] : 'en';
+  });
+
+  const changeLanguage = (newLang: string) => {
+    setLang(newLang);
+    document.cookie = `googtrans=/en/${newLang}; path=/`;
+    document.cookie = `googtrans=/en/${newLang}; domain=${window.location.hostname}; path=/`;
+    window.location.reload();
+  };
 
   const getRoleLinks = () => {
     const role = user?.role || 'Farmer';
@@ -153,20 +166,32 @@ export function Sidebar({ open, setOpen }: { open: boolean, setOpen: (open: bool
           </div>
           
           <div className="flex gap-2 pt-1">
+            <Select value={lang} onValueChange={changeLanguage}>
+              <SelectTrigger className="w-24 h-9 text-xs bg-background/60 border-white/10 shrink-0 px-2 font-bold text-slate-800 dark:text-slate-300">
+                <Globe className="w-3.5 h-3.5 mr-1.5" />
+                <SelectValue placeholder="Lang" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">Eng</SelectItem>
+                <SelectItem value="hi">हिंदी</SelectItem>
+                <SelectItem value="kn">ಕನ್ನಡ</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Button 
               variant="outline" 
               size="icon" 
-              className="flex-1 h-9"
+              className="w-9 h-9 shrink-0"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
             <Button 
               variant="outline" 
-              className="flex-[3] h-9 justify-start text-muted-foreground text-xs"
+              className="flex-1 h-9 justify-start text-muted-foreground text-xs px-2"
               onClick={logout}
             >
-              <LogOut className="w-3.5 h-3.5 mr-2" />
+              <LogOut className="w-3.5 h-3.5 mr-1" />
               Logout
             </Button>
           </div>

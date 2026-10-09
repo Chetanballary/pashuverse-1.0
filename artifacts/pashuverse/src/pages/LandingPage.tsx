@@ -4,10 +4,23 @@ import { motion } from 'framer-motion';
 import { PawPrint, ArrowRight, ShieldCheck, Activity, BrainCircuit, Users, HeartPulse, ChevronRight, CheckCircle2, AlertTriangle, Stethoscope, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/theme-provider';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Globe } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 function Navbar() {
   const { theme, setTheme } = useTheme();
+
+  const [lang, setLang] = React.useState(() => {
+    const match = document.cookie.match(/(^|;\s*)googtrans=([^;]*)/);
+    return match ? match[2].split('/')[2] : 'en';
+  });
+
+  const changeLanguage = (newLang: string) => {
+    setLang(newLang);
+    document.cookie = `googtrans=/en/${newLang}; path=/`;
+    document.cookie = `googtrans=/en/${newLang}; domain=${window.location.hostname}; path=/`;
+    window.location.reload();
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b">
@@ -25,8 +38,20 @@ function Navbar() {
           <a href="#impact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Impact</a>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Select value={lang} onValueChange={changeLanguage}>
+            <SelectTrigger className="w-24 h-9 text-xs bg-background/60 border-border shrink-0 px-2 font-bold text-foreground">
+              <Globe className="w-3.5 h-3.5 mr-1.5" />
+              <SelectValue placeholder="Lang" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">Eng</SelectItem>
+              <SelectItem value="hi">हिंदी</SelectItem>
+              <SelectItem value="kn">ಕನ್ನಡ</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Button variant="ghost" size="icon" className="w-9 h-9 shrink-0" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
           <Link href="/login">
